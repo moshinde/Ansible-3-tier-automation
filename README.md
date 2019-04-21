@@ -34,3 +34,7 @@ To skip the installation and verification of packages you can add the tags "pack
 
 ansible-playbook --skip-tags "packages" sites.yml
 
+
+To have prompted for user response on the task like "yes/No" for the playbook execution. Use the following code
+
+ansible-playbook sites.yml --step
