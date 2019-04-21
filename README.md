@@ -1,6 +1,7 @@
 # AnsibleCourse
 
 cd group_vars/all
+
 ansible-valut create vault =>password encryption- will ask to create the passphrase , then editor will open up to store the password and its value which will be storeed encrypted on host
 ansible-vault edit vault => to edit it
 ansible-plyabook --ask-valut-pass sites.yml
