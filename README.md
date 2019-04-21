@@ -9,12 +9,10 @@ or store that passphraze in text file and edit the ansible.cfg for vault_pass_fi
 
 ansible-playbook sites.yml
 
-ansible-playbook --limit database sites.yml
+ => sites.yml will be executed only for host mentioned in limit and others will be skipped
 
-ansible-playbook --limit 192.168.2.15 sites.yml => sites.yml will be executed only for host mentioned in limit and others will be skipped
+#To group or define each task/group of tasks as tag so that could be used as command line arg to  execute one task or group tasks.
 
-TAG
-sites.yml
 Add tag to any task you want in yml file and then execute the playbok with the tag you desired and it will execute the only that task related to the tag mentioned
 
 ---
@@ -30,6 +28,13 @@ Add tag to any task you want in yml file and then execute the playbok with the t
 
 
 ansible-playbook site.yml --tags "packages"
+
+#To limit the playbook execution to particular group or to particular host
+
+ansible-playbook --limit database sites.yml
+
+ansible-playbook --limit 192.168.2.15 sites.yml
+
 
 #To skip the installation and verification of packages you can add the tags "packages" to all the tasks with apt and the can skip it like below
 
