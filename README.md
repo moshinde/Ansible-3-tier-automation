@@ -17,5 +17,15 @@ TAG
 
 Add tag to any task you want in yml file and then execute the playbok with the tag you desired and it will execute the only that task related to the tag mentioned
 
+sites.yml
+---
+  - hosts: all
+    become: yes
+    tasks:
+      - name: Tag example
+        command: which java
+        tags: [ 'packages' ]
+        
+        
 ansible-playbook site.yml --tags "packages"
 
