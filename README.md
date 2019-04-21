@@ -14,10 +14,9 @@ ansible-playbook --limit database sites.yml
 ansible-playbook --limit 192.168.2.15 sites.yml => sites.yml will be executed only for host mentioned in limit and others will be skipped
 
 TAG
-
+sites.yml
 Add tag to any task you want in yml file and then execute the playbok with the tag you desired and it will execute the only that task related to the tag mentioned
 
-sites.yml
 ---
   - hosts: all
     become: yes
@@ -27,6 +26,8 @@ sites.yml
           name: curl
           update_cache: yes
         tags: [ 'packages' ]
+
+
 
 ansible-playbook site.yml --tags "packages"
 
