@@ -1,0 +1,5 @@
+---
+# vars file for demo_app
+db_name: demo
+db_user: demo
+db_pass: demo

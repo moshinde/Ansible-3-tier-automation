@@ -1,0 +1,6 @@
+---
+  - hosts: control
+    become: yes
+    become_user: root
+    roles:
+      - control

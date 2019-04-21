@@ -1,0 +1,6 @@
+---
+  - name: install tools on control host
+    apt: name={{item}} state=present update_cache=yes force=yes
+    loop:
+       - curl
+       - python-httplib2

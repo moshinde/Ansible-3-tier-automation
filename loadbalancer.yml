@@ -1,0 +1,6 @@
+---
+  - hosts: loadbalancer
+    become: yes
+    become_user: root
+    roles:
+      - nginx

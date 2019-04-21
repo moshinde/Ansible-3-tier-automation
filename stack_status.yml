@@ -1,0 +1,51 @@
+---
+  - hosts: loadbalancer
+    become: yes
+    become_user: root
+    tasks:
+      - name: verify nginx service
+        command: service nginx status
+      - name: verify nginx listening on 80
+        wait_for: port=80 timeout=1
+
+  - hosts: webserver
+    become: yes
+    become_user: root
+    tasks:
+      - name: verify apache2 service
+        command: service apache2 status
+      - name: verify apache2 listening on 80
+        wait_for: port=80 timeout=1
+
+  - hosts: database
+    become: yes
+    become_user: root
+    tasks:
+      - name: verify mysql service
+        command: service mysql status
+      - name: verify mysql listening on 3306
+        wait_for: port=3306 timeout=1
+    
+  - hosts: control
+    tasks:
+      - name: verify end-to-end response
+        uri: url=http://{{item}} return_content=yes
+        loop:
+           - groups.loadbalancer
+        register: lb_index
+      - fail: msg="index failed to return content"
+        when: "'Hello, from sunny' not in item.content"
+        loop:
+           - "{{lb_index.results}}"
+
+  - hosts: loadbalancer
+    tasks:
+      - name: verify backend response
+        uri: url=http://{{item}} return_content=yes
+        loop:
+           - groups.webserver
+        register: backend_index
+      - fail: msg="index failed to return content"
+        when: "'Hello, from sunny {{item.item}}!' not in item.content"
+        loop:
+           - "{{backend_index.results}}"

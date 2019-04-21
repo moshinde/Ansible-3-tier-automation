@@ -1,0 +1,12 @@
+[loadbalancer]
+192.168.2.12
+
+[webserver]
+192.168.2.13
+192.168.2.14
+
+[database]
+192.168.2.16
+
+[control]
+control ansible_connection=local

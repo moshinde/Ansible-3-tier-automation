@@ -1,0 +1,35 @@
+---
+  - hosts: loadbalancer
+    become: yes
+    become_user: root
+    tasks:
+      - name: stop loadbalancer nginx service
+        service: name=nginx state=stopped
+  
+  - hosts: webserver
+    become: yes
+    become_user: root
+    tasks:
+      - name: stop webserver apache2 service
+        service: name=apache2 state=stopped
+  
+  - hosts: database
+    become: yes
+    become_user: root
+    tasks:
+      - name: restart database mysql service
+        service: name=mysql state=restarted
+
+  - hosts: webserver
+    become: yes
+    become_user: root
+    tasks:
+      - name: start webserver apache2 service
+        service: name=apache2 state=started
+  
+  - hosts: loadbalancer
+    become: yes
+    become_user: root
+    tasks:
+      - name: start loadbalancer nginx service
+        service: name=nginx state=started
