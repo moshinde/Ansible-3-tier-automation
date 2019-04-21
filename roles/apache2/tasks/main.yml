@@ -5,14 +5,19 @@
     loop:
        - apache2
        - libapache2-mod-wsgi
+    tags: [ 'packages' ]
 
   - name: ensure mod wsgi enabled
     apache2_module: state=present name=wsgi
     notify: restart apache2
+    tags: [ 'service' ]
 
   - name: deactivate default apache site
     file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
     notify: restart apache2
+    tags: [ 'configure' ]
 
   - name: ensure apache2 service is started
     service: name=apache2 state=started enabled=yes
+    changed_when: false
+    tags: [ 'service' ]

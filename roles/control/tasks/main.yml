@@ -4,3 +4,4 @@
     loop:
        - curl
        - python-httplib2
+    tags: [ 'packages' ]
