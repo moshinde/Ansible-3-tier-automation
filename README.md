@@ -23,9 +23,14 @@ sites.yml
     become: yes
     tasks:
       - name: Tag example
-        command: which java
+        apt:
+          name: curl
+          update_cache: yes
         tags: [ 'packages' ]
-        
-        
+
 ansible-playbook site.yml --tags "packages"
+
+To skip the installation and verification of packages you can add the tags "packages" to all the tasks with apt and the can skip it like below
+
+ansible-playbook --skip-tags "packages" sites.yml
 
